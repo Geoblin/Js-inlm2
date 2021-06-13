@@ -321,32 +321,12 @@ const RESULTS = [{
     "description": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
     "image": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi."
 }];
-
-
-
-/* Our code */
-
 // input field
 const inputField = document.getElementById("search");
 
 // <ul> element to put search results in
 const resultsArea = document.getElementById("search-results");
 
-/*
-
-Finish this function, it should return a HTML element that looks like this:
-
-<li>
-    <article class="search-result">
-        <header class="search-result-header search-result-section">
-            Cool movie (title)
-        </header>
-        <div class="search-result-body search-result-section">
-            This is some information about this result. (description)
-        </div>
-    </article>
-</li>
-*/
 function createResultElement(title, description) {
     let newListItem = document.createElement("li");
 
@@ -356,7 +336,7 @@ function createResultElement(title, description) {
     let newHeaderitem = document.createElement("header");
     newHeaderitem.className = "search-result-header search-result-section";
     newHeaderitem.innerHTML = (`${title}`);
-    
+
     let newDivitem = document.createElement("div");
     newDivitem.className = "search-result-body search-result-section";
     newDivitem.innerHTML =(`${description}`);
@@ -369,13 +349,17 @@ function createResultElement(title, description) {
 }
 
 function findResult(query) {
-    return RESULTS.filter(result => result.id == query)
+    return RESULTS.filter(result => {
+    //console.log(query,result.title)
+      return result.title.toLowerCase().includes(query.toLowerCase());
+    })
 }
 
 inputField.addEventListener("keyup", function(event){
     // search for results
-    const results = findResult(event.target.value);
+    let results = findResult(event.target.value);
 
+    console.log(results);
     // clear previous results
     resultsArea.innerHTML = "";
 
